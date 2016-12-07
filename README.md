@@ -77,6 +77,7 @@ def get_userinfo(self, access_token=None, openid=None):
 
 
     def base_redirect(request):
+        """ snsapi_base cannot get unionid and userinfo """
         code = request.GET.get('code', '')
         state = request.GET.get('state', '')
 
