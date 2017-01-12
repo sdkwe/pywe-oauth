@@ -20,7 +20,7 @@ setup(
 
     packages=['pywe_oauth'],
     py_modules=[],
-    install_requires=['pywe_utils'],
+    install_requires=['pywe_base'],
 
     classifiers=[
         "License :: OSI Approved :: BSD License",

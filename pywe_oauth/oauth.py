@@ -2,10 +2,10 @@
 
 import urllib
 
-from pywe_utils import WechatUtils
+from pywe_base import BaseWechat
 
 
-class Oauth(WechatUtils):
+class Oauth(BaseWechat):
     def __init__(self):
         super(Oauth, self).__init__()
         # 网页授权获取用户基本信息, Refer: http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html
