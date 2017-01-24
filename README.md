@@ -49,6 +49,10 @@ def get_userinfo(self, access_token=None, openid=None):
             }
         },
     }
+
+    WECHAT_BASE_REDIRECT_URI = 'https://wx.com/base_redirect'
+    WECHAT_USERINFO_REDIRECT_URI = 'https://wx.com/userinfo_redirect'
+    WECHAT_OAUTH2_RETRY_REDIRECT_URI = 'https://wx.com/wx_oauth2?redirect_url={}'
     ```
 
   * views.py
@@ -82,6 +86,8 @@ def get_userinfo(self, access_token=None, openid=None):
         state = request.GET.get('state', '')
 
         access_info = get_access_info(JSAPI['appID'], JSAPI['appsecret'], code)
+        if 'errcode' in access_info:
+            return redirect(settings.WECHAT_OAUTH2_RETRY_REDIRECT_URI.format(state))
 
         return redirect(furl(state).add(access_info).url)
 
@@ -91,6 +97,9 @@ def get_userinfo(self, access_token=None, openid=None):
         state = request.GET.get('state', '')
 
         access_info = get_access_info(JSAPI['appID'], JSAPI['appsecret'], code)
+        if 'errcode' in access_info:
+            return redirect(settings.WECHAT_OAUTH2_RETRY_REDIRECT_URI.format(state))
+
         userinfo = get_userinfo(access_info.get('access_token', ''), access_info.get('openid', ''))
 
         return redirect(furl(state).add(userinfo).url)
