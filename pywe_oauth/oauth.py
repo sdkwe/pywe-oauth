@@ -9,6 +9,7 @@ class Oauth(BaseWechat):
     def __init__(self):
         super(Oauth, self).__init__()
         # 网页授权获取用户基本信息, Refer: http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html
+        # 移动应用微信登录开发指南, Refer: https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419317851&token=&lang=zh_CN
         self.WECHAT_OAUTH2_AUTHORIZE = self.OPEN_DOMAIN + '/connect/oauth2/authorize?appid={appid}&redirect_uri={redirect_uri}&response_type=code&scope={scope}&state={state}#wechat_redirect'
         self.WECHAT_OAUTH2_ACCESS_TOKEN = self.API_DOMAIN + '/sns/oauth2/access_token?appid={appid}&secret={secret}&code={code}&grant_type=authorization_code'
         self.WECHAT_OAUTH2_USERINFO = self.API_DOMAIN + '/sns/userinfo?access_token={access_token}&openid={openid}'

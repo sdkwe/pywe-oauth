@@ -101,6 +101,8 @@ def get_userinfo(self, access_token=None, openid=None):
             return redirect(settings.WECHAT_OAUTH2_RETRY_REDIRECT_URI.format(state))
 
         userinfo = get_userinfo(access_info.get('access_token', ''), access_info.get('openid', ''))
+        if 'openid' not in userinfo:
+            return redirect(settings.WECHAT_OAUTH2_RETRY_REDIRECT_URI.format(state))
 
         return redirect(furl(state).add(userinfo).url)
     ```
