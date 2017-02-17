@@ -104,5 +104,8 @@ def get_userinfo(self, access_token=None, openid=None):
         if 'openid' not in userinfo:
             return redirect(settings.WECHAT_OAUTH2_RETRY_REDIRECT_URI.format(state))
 
+        # Save Userinfo Or Other Handle
+        # Some codes
+
         return redirect(furl(state).add(userinfo).url)
     ```
