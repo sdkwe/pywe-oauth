@@ -28,8 +28,18 @@ class Oauth(BaseWechat):
     def get_userinfo(self, access_token=None, openid=None):
         return self.get(self.WECHAT_OAUTH2_USERINFO, access_token=access_token, openid=openid)
 
+    def get_oauth_redirect_url(self, oauth_uri, redirect_url, default_url=None):
+        """
+        # https://a.com/wx/oauth2?redirect_url=redirect_url
+        # https://a.com/wx/oauth2?redirect_url=redirect_url&default_url=default_url
+        # https://a.com/wx/oauth2?scope=snsapi_base&redirect_url=redirect_url
+        # https://a.com/wx/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=default_url
+        """
+        return oauth_uri.format(urllib.quote_plus(redirect_url), urllib.quote_plus(default_url)) if default_url else oauth_uri.format(urllib.quote_plus(redirect_url))
+
 
 oauth = Oauth()
 get_oauth_code_url = oauth.get_oauth_code_url
 get_access_info = oauth.get_access_info
 get_userinfo = oauth.get_userinfo
+get_oauth_redirect_url = oauth.get_oauth_redirect_url
