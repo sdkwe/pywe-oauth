@@ -28,10 +28,10 @@ def get_oauth_redirect_url(self, oauth_uri, redirect_url, default_url=None):
 
 # OAuth2 URL Examples
 ```
-https://wx.com/wx/oauth2?redirect_url=redirect_url
-https://wx.com/wx/oauth2?redirect_url=redirect_url&default_url=default_url
-https://wx.com/wx/oauth2?scope=snsapi_base&redirect_url=redirect_url
-https://wx.com/wx/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=default_url
+https://wx.com/oauth2?redirect_url=redirect_url
+https://wx.com/oauth2?redirect_url=redirect_url&default_url=default_url
+https://wx.com/oauth2?scope=snsapi_base&redirect_url=redirect_url
+https://wx.com/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=default_url
 ```
 
 # Backend Examples
