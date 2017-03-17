@@ -11,7 +11,7 @@ pip install pywe-oauth
 # Usage
 
 ```python
-from pywe_oauth import get_access_info, get_oauth_code_url, get_userinfo
+from pywe_oauth import get_access_info, get_oauth_code_url, get_userinfo, get_oauth_redirect_url
 ```
 
 # Method
@@ -22,9 +22,19 @@ def get_oauth_code_url(self, appid=None, redirect_uri=None, scope='snsapi_base',
 def get_access_info(self, appid=None, secret=None, code=None):
 
 def get_userinfo(self, access_token=None, openid=None):
+
+def get_oauth_redirect_url(self, oauth_uri, redirect_url, default_url=None):
 ```
 
-# Examples
+# OAuth2 URL Examples
+```
+https://wx.com/wx/oauth2?redirect_url=redirect_url
+https://wx.com/wx/oauth2?redirect_url=redirect_url&default_url=default_url
+https://wx.com/wx/oauth2?scope=snsapi_base&redirect_url=redirect_url
+https://wx.com/wx/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=default_url
+```
+
+# Backend Examples
 
 * Django
 
@@ -53,6 +63,20 @@ def get_userinfo(self, access_token=None, openid=None):
     WECHAT_BASE_REDIRECT_URI = 'https://wx.com/base_redirect'
     WECHAT_USERINFO_REDIRECT_URI = 'https://wx.com/userinfo_redirect'
     WECHAT_OAUTH2_RETRY_REDIRECT_URI = 'https://wx.com/wx_oauth2?redirect_url={}'
+    ```
+
+  * urls.py
+    ```python
+    # -*- coding: utf-8 -*-
+
+    from django.conf.urls import include, url
+    from wechat import views as wx_views
+
+    urlpatterns = [
+        url(r'^oauth2$', wx_views.wx_oauth2, name='wx_oauth2'),
+        url(r'^base_redirect$', wx_views.base_redirect, name='base_redirect'),
+        url(r'^userinfo_redirect$', wx_views.userinfo_redirect, name='userinfo_redirect'),
+    ]
     ```
 
   * views.py

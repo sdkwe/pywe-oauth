@@ -17,7 +17,7 @@ Usage
 
 ::
 
-    from pywe_oauth import get_access_info, get_oauth_code_url, get_userinfo
+    from pywe_oauth import get_access_info, get_oauth_code_url, get_userinfo, get_oauth_redirect_url
 
 
 Method
@@ -30,4 +30,6 @@ Method
     def get_access_info(self, appid=None, secret=None, code=None):
 
     def get_userinfo(self, access_token=None, openid=None):
+
+    def get_oauth_redirect_url(self, oauth_uri, redirect_url, default_url=None):
 
