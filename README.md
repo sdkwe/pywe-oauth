@@ -26,6 +26,9 @@ def get_userinfo(self, access_token=None, openid=None):
 def get_oauth_redirect_url(self, oauth_uri, redirect_url, default_url=None):
 ```
 
+# Relative Libs
+* [Django WeChat OAuth2/Share API](https://github.com/django-xxx/django-we)
+
 # OAuth2 URL Examples
 ```
 https://wx.com/oauth2?redirect_url=redirect_url
@@ -50,7 +53,7 @@ https://wx.com/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=de
             'apiKey': '',
             'mch_cert': '',
             'mch_key': '',
-            'redpacket': {
+            'redpack': {
                 'SEND_NAME': '',
                 'NICK_NAME': '',
                 'ACT_NAME': '',
