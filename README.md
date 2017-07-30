@@ -65,7 +65,7 @@ https://wx.com/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=de
 
     WECHAT_BASE_REDIRECT_URI = 'https://wx.com/base_redirect'
     WECHAT_USERINFO_REDIRECT_URI = 'https://wx.com/userinfo_redirect'
-    WECHAT_OAUTH2_RETRY_REDIRECT_URI = 'https://wx.com/wx_oauth2?redirect_url={}'
+    WECHAT_OAUTH2_RETRY_REDIRECT_URI = 'https://wx.com/wx_oauth2?scope={}&redirect_url={}'
     ```
 
   * urls.py
@@ -114,7 +114,7 @@ https://wx.com/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=de
 
         access_info = get_access_info(JSAPI['appID'], JSAPI['appsecret'], code)
         if 'errcode' in access_info:
-            return redirect(settings.WECHAT_OAUTH2_RETRY_REDIRECT_URI.format(state))
+            return redirect(settings.WECHAT_OAUTH2_RETRY_REDIRECT_URI.format('snsapi_base', state))
 
         return redirect(furl(state).add(access_info).url)
 
@@ -125,11 +125,11 @@ https://wx.com/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=de
 
         access_info = get_access_info(JSAPI['appID'], JSAPI['appsecret'], code)
         if 'errcode' in access_info:
-            return redirect(settings.WECHAT_OAUTH2_RETRY_REDIRECT_URI.format(state))
+            return redirect(settings.WECHAT_OAUTH2_RETRY_REDIRECT_URI.format('snsapi_userinfo', state))
 
         userinfo = get_userinfo(access_info.get('access_token', ''), access_info.get('openid', ''))
         if 'openid' not in userinfo:
-            return redirect(settings.WECHAT_OAUTH2_RETRY_REDIRECT_URI.format(state))
+            return redirect(settings.WECHAT_OAUTH2_RETRY_REDIRECT_URI.format('snsapi_userinfo', state))
 
         # Save Userinfo Or Other Handle
         # Some codes
