@@ -31,5 +31,5 @@ Method
 
     def get_userinfo(self, access_token=None, openid=None):
 
-    def get_oauth_redirect_url(self, oauth_uri, scope='snsapi_base', redirect_url=None, default_url=None):
+    def get_oauth_redirect_url(self, oauth_uri, scope='snsapi_base', redirect_url=None, default_url=None, direct_redirect=None):
 

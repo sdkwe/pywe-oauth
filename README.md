@@ -23,7 +23,7 @@ def get_access_info(self, appid=None, secret=None, code=None):
 
 def get_userinfo(self, access_token=None, openid=None):
 
-def get_oauth_redirect_url(self, oauth_uri, scope='snsapi_base', redirect_url=None, default_url=None):
+def get_oauth_redirect_url(self, oauth_uri, scope='snsapi_base', redirect_url=None, default_url=None, direct_redirect=None):
 ```
 
 # Relative Libs
@@ -35,6 +35,7 @@ https://wx.com/oauth2?redirect_url=redirect_url
 https://wx.com/oauth2?redirect_url=redirect_url&default_url=default_url
 https://wx.com/oauth2?scope=snsapi_base&redirect_url=redirect_url
 https://wx.com/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=default_url
+https://wx.com/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=default_url&direct_redirect=true
 ```
 
 # Backend Examples
@@ -63,9 +64,9 @@ https://wx.com/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=de
         },
     }
 
+    WECHAT_OAUTH2_REDIRECT_URI = 'https://wx.com/wx_oauth2?scope={}&redirect_url={}'
     WECHAT_BASE_REDIRECT_URI = 'https://wx.com/base_redirect'
     WECHAT_USERINFO_REDIRECT_URI = 'https://wx.com/userinfo_redirect'
-    WECHAT_OAUTH2_REDIRECT_URI = 'https://wx.com/wx_oauth2?scope={}&redirect_url={}'
     ```
 
   * urls.py
