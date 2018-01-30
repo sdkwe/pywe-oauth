@@ -2,6 +2,7 @@
 
 import urllib
 
+import shortuuid
 from pywe_base import BaseWechat
 
 
@@ -28,16 +29,24 @@ class Oauth(BaseWechat):
     def get_userinfo(self, access_token=None, openid=None):
         return self.get(self.WECHAT_OAUTH2_USERINFO, access_token=access_token, openid=openid)
 
-    def get_oauth_redirect_url(self, oauth_uri, scope='snsapi_base', redirect_url=None, default_url=None, direct_redirect=None):
+    def get_oauth_redirect_url(self, oauth_uri, scope='snsapi_base', redirect_url=None, default_url=None, direct_redirect=None, random_str=True):
         """
         # https://a.com/wx/oauth2?redirect_url=redirect_url
         # https://a.com/wx/oauth2?redirect_url=redirect_url&default_url=default_url
         # https://a.com/wx/oauth2?scope=snsapi_base&redirect_url=redirect_url
         # https://a.com/wx/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=default_url
         # https://a.com/wx/oauth2?scope=snsapi_base&redirect_url=redirect_url&default_url=default_url&direct_redirect=true
+
+        # https://a.com/wx/o?r=redirect_url
+        # https://a.com/wx/o?r=redirect_url&d=default_url
+        # https://a.com/wx/o?s=snsapi_base&r=redirect_url
+        # https://a.com/wx/o?s=snsapi_base&r=redirect_url&d=default_url
+        # https://a.com/wx/o?s=snsapi_base&r=redirect_url&d=default_url&dr=true
         """
         oauth_url = oauth_uri.format(scope, urllib.quote_plus(redirect_url), urllib.quote_plus(default_url)) if default_url else oauth_uri.format(scope, urllib.quote_plus(redirect_url))
-        return '{0}&direct_redirect=true'.format(oauth_url) if direct_redirect else oauth_url
+        oauth_url = '{0}&dr=true'.format(oauth_url) if direct_redirect else oauth_url
+        oauth_url = '{0}&rs={1}'.format(oauth_url, shortuuid.uuid()) if random_str else oauth_url
+        return oauth_url
 
 
 oauth = Oauth()
