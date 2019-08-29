@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import urllib
-
 import shortuuid
 from pywe_base import BaseWechat
+from six.moves import urllib_parse
 
 
 class Oauth(BaseWechat):
@@ -24,9 +23,9 @@ class Oauth(BaseWechat):
             return self.get_component_oauth_code_url(appid=appid, redirect_uri=redirect_uri, scope=scope, redirect_url=redirect_url, component_appid=component_appid)
         return self.WECHAT_OAUTH2_AUTHORIZE.format(
             appid=appid,
-            redirect_uri=urllib.quote_plus(redirect_uri),
+            redirect_uri=urllib_parse.quote_plus(redirect_uri),
             scope=scope,
-            state=urllib.quote_plus(redirect_url),
+            state=urllib_parse.quote_plus(redirect_url),
         )
 
     def get_access_info(self, appid=None, secret=None, code=None, component=False, component_appid=None, component_access_token=None):
@@ -42,9 +41,9 @@ class Oauth(BaseWechat):
     def get_component_oauth_code_url(self, appid=None, redirect_uri=None, scope='snsapi_base', redirect_url=None, component_appid=None):
         return self.WECHAT_COMPONENT_OAUTH2_AUTHORIZE.format(
             appid=appid,
-            redirect_uri=urllib.quote_plus(redirect_uri),
+            redirect_uri=urllib_parse.quote_plus(redirect_uri),
             scope=scope,
-            state=urllib.quote_plus(redirect_url),
+            state=urllib_parse.quote_plus(redirect_url),
             component_appid=component_appid,
         )
 
@@ -68,7 +67,7 @@ class Oauth(BaseWechat):
         # https://a.com/wx/o?s=snsapi_base&r=redirect_url&d=default_url
         # https://a.com/wx/o?s=snsapi_base&r=redirect_url&d=default_url&dr=true
         """
-        oauth_url = oauth_uri.format(scope, urllib.quote_plus(redirect_url), urllib.quote_plus(default_url)) if default_url else oauth_uri.format(scope, urllib.quote_plus(redirect_url))
+        oauth_url = oauth_uri.format(scope, urllib_parse.quote_plus(redirect_url), urllib_parse.quote_plus(default_url)) if default_url else oauth_uri.format(scope, urllib_parse.quote_plus(redirect_url))
         oauth_url = '{0}&dr=true'.format(oauth_url) if direct_redirect else oauth_url
         oauth_url = '{0}&rs={1}'.format(oauth_url, shortuuid.uuid()) if random_str else oauth_url
         return oauth_url
