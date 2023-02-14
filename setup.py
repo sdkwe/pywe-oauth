@@ -11,7 +11,8 @@ setup(
     version=version,
     keywords='Wechat Weixin Oauth Oauth2',
     description='Wechat Oauth Module for Python.',
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
 
     url='https://github.com/sdkwe/pywe-oauth',
 
@@ -20,7 +21,7 @@ setup(
 
     packages=['pywe_oauth'],
     py_modules=[],
-    install_requires=['pywe_base>=1.0.7', 'shortuuid', 'six'],
+    install_requires=['pywe-base>=1.0.7', 'shortuuid', 'six'],
 
     classifiers=[
         "License :: OSI Approved :: BSD License",
